@@ -9,8 +9,8 @@ A Python script to connect to an SMB share, traverse its directories, and genera
 
 ## Installation
 
-1. Clone this repository or download `main.py`.
-2. 2. Create and Activate a Virtual Environment
+1. Clone this repository
+3. Create and Activate a Virtual Environment
 
 **Windows:**
 ```sh
