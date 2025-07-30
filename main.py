@@ -1,6 +1,7 @@
 from smb.SMBConnection import SMBConnection
 import argparse
 import csv
+import os
 
 TCP_PORT = 445
 EXCEEDED_SIZE = 500 * 1024 * 1024 
@@ -53,8 +54,8 @@ def traverse(conn, share, path, ip, records):
         if name in ('.', '..'):
             continue
 
-        sub_path = path.rstrip('/') + '/' + name
-        column_path = f"\\\\{ip}\\{share}{sub_path}"
+        sub_path = os.path.join(path, name)
+        column_path = os.path.join(f"\\\\{ip}", share, sub_path)
 
         if entry.isDirectory:
             if is_folder_empty(conn, share, sub_path):
@@ -89,7 +90,7 @@ def main():
 
     conn = connect_to_share(args)
     if conn:
-        traverse(conn, args.share, '/', args.ip, records)
+        traverse(conn, args.share, "\\", args.ip, records)
         write_csv(records)
         conn.close()
     
